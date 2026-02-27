@@ -6,6 +6,8 @@ const Header = () => {
   const authStatus =useSelector((state)=>state.auth.status)
   const navigate=useNavigate()
 
+  
+
   const navItems=[
     {
       name:'Home',
