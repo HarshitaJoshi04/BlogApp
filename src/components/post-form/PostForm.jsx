@@ -5,10 +5,10 @@ import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function PostForm({ post }) {// if post is given that means updating if post is not given we are creating it
-    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({ //watch used to monitor changes in fields 
+export default function PostForm({ post }) {
+    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
-            title: post?.title || "",  
+            title: post?.title || "",
             slug: post?.$id || "",
             content: post?.content || "",
             status: post?.status || "active",
