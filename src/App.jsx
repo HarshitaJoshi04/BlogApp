@@ -1,11 +1,12 @@
 
 import { useEffect, useState } from 'react'
-import './App.css'
+
 import { useDispatch } from 'react-redux'
 import authService from "./appwrite/auth"
 import {login, logout} from "./store/authSlice"
 import { Footer, Header } from './components'
 import { Outlet } from 'react-router-dom'
+import bgImage from "./assets/bg4.jpg"
 function App() {
   const [loading,setLoading]=useState(true)
   const dispatch=useDispatch()
@@ -27,17 +28,21 @@ function App() {
 
   })
    },[])
-  return !loading?(
-    <div className="min-h-screen flex flex-wap content-between bg-gray-400">
-      <div className="w-full block">
-        <Header/>
-        <main>
-          <Outlet/> 
-        </main>
-        <Footer/>
-      </div>
+return !loading ? (
+  <div className="min-h-screen flex flex-col bg-cover bg-center bg-no-repeat"
+     style={{ backgroundImage: `url(${bgImage})` }}>
+
+  <Header />
+
+  <main className="flex-grow flex items-center justify-center">
+    <div className="max-w-5xl w-full px-4">
+      <Outlet />
     </div>
-  ):null
+  </main>
+
+  <Footer />
+</div>
+) : null;
 
 }
 

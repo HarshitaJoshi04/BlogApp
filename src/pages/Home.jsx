@@ -15,17 +15,24 @@ useEffect(() => {
 }, []);
   if (posts.length === 0) {
     return (
-      <div className="w-full py-8 mt-4 text-center">
-        <Container>
-          <div className="flex flex-wrap">
-            <div className="p-2 w-full">
-              <h1 className="text-2xl font-bold hover:text-gray-500">
-                Login to read posts
-              </h1>
-            </div>
-          </div>
-        </Container>
-      </div>
+<div className="w-full py-16 mt-4 text-center">
+  <Container>
+    <div className="flex flex-col items-center">
+
+      <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
+        Welcome to{" "}
+        <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          Blogify
+        </span>
+      </h1>
+
+      <p className="mt-4 text-gray-600 text-lg md:text-xl">
+        Login to explore thoughtful stories and ideas.
+      </p>
+
+    </div>
+  </Container>
+</div>
     );
   }
   return (
