@@ -3,16 +3,21 @@ import appwriteService from "../appwrite/config";
 import { Container, PostCard } from "../components/index";
 function Home() {
   const [posts, setPosts] = useState([]);
+  const[loading,setLoading]=useState(true)
 useEffect(() => {
   const fetchPosts = async () => {
     const response = await appwriteService.getPosts();
     if (response) {
       setPosts(response.documents);
     }
+    setLoading(false)
   };
 
   fetchPosts();
 }, []);
+if (loading) {
+  return <div className="text-center py-10">Loading...</div>;
+}
   if (posts.length === 0) {
     return (
 <div className="w-full py-16 mt-4 text-center">
