@@ -6,7 +6,7 @@ import authService from "./appwrite/auth"
 import {login, logout} from "./store/authSlice"
 import { Footer, Header } from './components'
 import { Outlet } from 'react-router-dom'
-import bgImage from "./assets/bg4.jpg"
+import bgImage from "./assets/bg5.jpg"
 function App() {
   const [loading,setLoading]=useState(true)
   const dispatch=useDispatch()
