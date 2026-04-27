@@ -18,36 +18,56 @@ export default function PostForm({ post }) {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
 
-    const submit = async (data) => {
+const submit = async (data) => {
+    try {
+        if (!userData) {
+            alert("Please login first");
+            return;
+        }
+
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
             if (file) {
-                appwriteService.deleteFile(post.featuredImage);
+                await appwriteService.deleteFile(post.featuredImage);
             }
 
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : undefined,
+                featuredImage: file ? file.$id : post.featuredImage,
             });
 
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`);
             }
         } else {
+            if (!data.image[0]) {
+                alert("Please select an image");
+                return;
+            }
+
             const file = await appwriteService.uploadFile(data.image[0]);
 
-            if (file) {
-                const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+            if (!file) {
+                alert("Image upload failed");
+                return;
+            }
 
-                if (dbPost) {
-                    navigate(`/post/${dbPost.$id}`);
-                }
+            data.featuredImage = file.$id;
+
+            const dbPost = await appwriteService.createPost({
+                ...data,
+                userId: userData.$id,
+            });
+
+            if (dbPost) {
+                navigate(`/post/${dbPost.$id}`);
             }
         }
-    };
+    } catch (error) {
+        console.log("Submit Error:", error);
+    }
+};
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === "string")
