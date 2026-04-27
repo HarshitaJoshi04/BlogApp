@@ -68,17 +68,17 @@ const submit = async (data) => {
         console.log("Submit Error:", error);
     }
 };
+const slugTransform = useCallback((value) => {
+    if (value && typeof value === "string")
+        return value
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-zA-Z\d\s]+/g, "-")
+            .replace(/\s/g, "-")
+            .substring(0, 30);
 
-    const slugTransform = useCallback((value) => {
-        if (value && typeof value === "string")
-            return value
-                .trim()
-                .toLowerCase()
-                .replace(/[^a-zA-Z\d\s]+/g, "-")
-                .replace(/\s/g, "-");
-
-        return "";
-    }, []);
+    return "";
+}, []);
 
     React.useEffect(() => {
         const subscription = watch((value, { name }) => {
@@ -133,7 +133,7 @@ const submit = async (data) => {
                     className="mb-4"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
+                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full hover:scale-90">
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>
